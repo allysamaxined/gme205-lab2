@@ -69,3 +69,31 @@ class Point:
 
     def is_poi (self):
         return (self.tag or "").lower() == "poi"
+
+# ------------------------------------------------------------------
+# Starting the class PointSet here.
+# ------------------------------------------------------------------
+
+class PointSet:
+    def __init__ (self, points):
+        self.points = points # Here, the PointSet is outside the previous Point class and is stored as self.points.
+
+    def count (self):
+        return len (self.points) # Now here, with the "len" function, I'll later have the information on how many objects are in the PointSet.
+
+    def bbox (self):
+        min_lon = min (point.lon for point in self.points)
+        min_lat = min (point.lat for point in self.points)
+        max_lon = max (point.lon for point in self.points)
+        max_lat = max (point.lat for point in self.points)
+
+        return (min_lon, min_lat, max_lon, max_lat)
+
+    def filter_by_tag (self, tag):
+        filtered_points = [
+            point for point in self.points
+            if (point.tag or "").lower() == tag.lower()
+        ]
+
+        return PointSet (filtered_points) # Similar to how the 'Select by Attribute' tool works in GIS software, but this time I'm trying to accomplish it through OOP.
+    
