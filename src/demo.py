@@ -18,14 +18,23 @@ from spatial import Point, PointSet # Added PointSet here.
 
 # I'm going to test the PointSet class here, so I commented out or used # for the previous code above.
 
-p1 = Point ("Calzada, Taguig", 121.0, 14.5, "Home", "Residential")
-p2 = Point ("Boracay Island", 121.9, 11.9, "Tourist Destination", "Recreational")
-p3 = Point ("Siquijor Island", 123.5, 9.2, "Tourist Destination", "Recreational")
+# p1 = Point ("Calzada, Taguig", 121.0, 14.5, "Home", "Residential")
+# p2 = Point ("Boracay Island", 121.9, 11.9, "Tourist Destination", "Recreational")
+# p3 = Point ("Siquijor Island", 123.5, 9.2, "Tourist Destination", "Recreational")
 
-group = PointSet ([p1, p2, p3])
+# group = PointSet ([p1, p2, p3])
 
+# print ("Count: ", group.count())
+# print ("Bounding Box: ", group.bbox())
+
+# recreational_group = group.filter_by_tag ("Recreational")
+# print ("Count of Recreational Points/Areas: ", recreational_group.count())
+
+
+# Trying to test the PointSet class with a CSV file instead of coding the points one-by-one.
+
+group = PointSet.from_csv ("data/points.csv")
 print ("Count: ", group.count())
 print ("Bounding Box: ", group.bbox())
-
-recreational_group = group.filter_by_tag ("Recreational")
-print ("Count of Recreational Points/Areas: ", recreational_group.count()   )
+river_group = group.filter_by_tag ("River")
+print ("Known Rivers in the Philippines: ", river_group.count())

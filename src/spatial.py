@@ -78,6 +78,23 @@ class PointSet:
     def __init__ (self, points):
         self.points = points # Here, the PointSet is outside the previous Point class and is stored as self.points.
 
+    @classmethod
+    def from_csv (cls, path):
+        import pandas as pd 
+
+        dataframe = pd.read_csv (path)
+        points = []
+
+        for _, row in dataframe.iterrows():
+            try:
+                point = Point.from_row (row)
+                points.append (point)
+
+            except ValueError:
+                continue
+
+        return cls (points)
+
     def count (self):
         return len (self.points) # Now here, with the "len" function, I'll later have the information on how many objects are in the PointSet.
 
