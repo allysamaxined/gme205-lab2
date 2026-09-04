@@ -1,4 +1,5 @@
 # Transferring all the tests from the demo.py file to this test_spatial.py file for better organization and separation of concerns.
+# This verifies if the spatial.py module is working as intended.
 
 import sys # Gives access to Python's runtime/environment and allows for the manipulation of the Python path and other system-level operations.
 import os # Gives Python the tools so it can interact with the operating system.

@@ -16,6 +16,18 @@ print ("Bounding Box: ", bbox)
 longitudes = [point.lon for point in group.points]
 latitudes = [point.lat for point in group.points]
 
+# Visualize all points uniquely on a scatter plot using Matplotlib.
+tags = set (point.tag for point in group.points)
+
+# Assigning colors to each tag for better visualization.
+for tag in tags:
+    tagged_points = group.filter_by_tag (tag)
+
+    longitudes = [point.lon for point in tagged_points.points]
+    latitudes = [point.lat for point in tagged_points.points]
+
+    plt.scatter (longitudes, latitudes, label = tag)
+
 # Using Matplotlib to plot the points on a scatter plot
 plt.scatter (longitudes, latitudes)
 
@@ -23,6 +35,14 @@ plt.scatter (longitudes, latitudes)
 plt.xlabel ("Longitude")
 plt.ylabel ("Latitude")
 plt.title ("Visualization of Known Water Bodies in the Philippines")
+
+# Adding a legend
+plt.legend (
+    title="Water Body Type",
+    fontsize = 8,
+    title_fontsize = 9,
+    markerscale = 0.7
+)
 
 # Saving the plot
 plt.savefig ("output/lab2_preview.png")
