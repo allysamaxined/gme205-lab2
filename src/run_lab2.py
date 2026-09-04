@@ -16,7 +16,7 @@ print ("Bounding Box: ", bbox)
 longitudes = [point.lon for point in group.points]
 latitudes = [point.lat for point in group.points]
 
-# Visualize all points uniquely on a scatter plot using Matplotlib.
+# Visualize all points uniquely on a scatter plot using Matplotlib. Not necessary, but a good way to go the extra mile.
 tags = set (point.tag for point in group.points)
 
 # Assigning colors to each tag for better visualization.
@@ -36,7 +36,7 @@ plt.xlabel ("Longitude")
 plt.ylabel ("Latitude")
 plt.title ("Visualization of Known Water Bodies in the Philippines")
 
-# Adding a legend
+# Adding a legend. This can be customized based on user preference and on the amount of data involved.
 plt.legend (
     title="Water Body Type",
     fontsize = 8,
