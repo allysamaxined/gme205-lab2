@@ -71,12 +71,12 @@ class Point:
         return (self.tag or "").lower() == "poi"
 
 # ------------------------------------------------------------------
-# Starting the class PointSet here.
+# Creating the PointSet class to store multiple Point objects in a list.
 # ------------------------------------------------------------------
 
 class PointSet:
     def __init__ (self, points):
-        self.points = points # Here, the PointSet is outside the previous Point class and is stored as self.points.
+        self.points = points # PointSet is now outside of the Point class, and it is a separate class that can store multiple Point objects in a list.
 
     @classmethod
     def from_csv (cls, path):
@@ -96,8 +96,7 @@ class PointSet:
         return cls (points)
 
     def count (self):
-        return len (self.points) # Now here, with the "len" function, I'll later have the information on how many objects are in the PointSet.
-
+        return len (self.points) # Using the len() function to count the number of Point objects in the PointSet.
     def bbox (self):
         min_lon = min (point.lon for point in self.points)
         min_lat = min (point.lat for point in self.points)
@@ -112,5 +111,5 @@ class PointSet:
             if (point.tag or "").lower() == tag.lower()
         ]
 
-        return PointSet (filtered_points) # Similar to how the 'Select by Attribute' tool works in GIS software, but this time I'm trying to accomplish it through OOP.
+        return PointSet (filtered_points)
     

@@ -16,7 +16,7 @@ from spatial import Point, PointSet # Added PointSet here.
 
 # print ("Distance: ", distance, "meters")
 
-# I'm going to test the PointSet class here, so I commented out or used # for the previous code above.
+# Testing out the PointSet class with a few points.
 
 # p1 = Point ("Calzada, Taguig", 121.0, 14.5, "Home", "Residential")
 # p2 = Point ("Boracay Island", 121.9, 11.9, "Tourist Destination", "Recreational")
@@ -31,7 +31,7 @@ from spatial import Point, PointSet # Added PointSet here.
 # print ("Count of Recreational Points/Areas: ", recreational_group.count())
 
 
-# Trying to test the PointSet class with a CSV file instead of coding the points one-by-one.
+# Testing out the PointSet class with a CSV file.
 
 group = PointSet.from_csv ("data/points.csv")
 print ("Count: ", group.count())
