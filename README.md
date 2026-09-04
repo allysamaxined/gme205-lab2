@@ -3,6 +3,7 @@
 
 #### Introduction to the Programming Exercise
 This Programming Exercise aims to introduce object-oriented thinking for spatial problems by designing simple objects in Python. At the end of this exercise, users must be able to:
+
     1. Model spatial entities as objects with their own states and behaviors, not just stuck on being geometries.
     2. Understand and distinguish what "data" is from "meaning."
     3. Implement Python classes and methods for spatial reasoning.
@@ -10,6 +11,7 @@ This Programming Exercise aims to introduce object-oriented thinking for spatial
 
 #### Materials/Requirements
 Before proceeding to this exercise, users must have the following requirements:
+
     1. Python 3.x for scripting, spatial data processing, and database interaction.
     2. Visual Studio Code (VS Code) as the primary development environment for Python scripting and Git integration.
     3. Git for version control and managing analytical workflows.
@@ -62,6 +64,7 @@ To process the .CSV data and generate outputs, run:
 
 #### Project Output
 By executing 'python src/run_lab2.py', the following outputs will be generated:
+
     1. Scatter Plot named lab2_preview.png
         This shows the plotted coordinates of the points.
     2. JSON Report named lab2_report.json  
