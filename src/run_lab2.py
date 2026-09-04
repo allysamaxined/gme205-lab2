@@ -12,14 +12,10 @@ bbox = group.bbox()
 print ("Count: ", count)
 print ("Bounding Box: ", bbox)
 
-# Getting the coordinates from the fifteen (15) points I have in the PointSet.
-longitudes = [point.lon for point in group.points]
-latitudes = [point.lat for point in group.points]
+# Group the required scatter plot by water-body tag for clearer visualization.
+tags = ["River", "Lake", "Beach", "Falls", "Reef", "Bay", "Gulf"]
 
-# Visualize all points uniquely on a scatter plot using Matplotlib. Not necessary, but a good way to go the extra mile.
-tags = set (point.tag for point in group.points)
-
-# Assigning colors to each tag for better visualization.
+# Assigning colors to each tag for better visualization and getting their coordinates.
 for tag in tags:
     tagged_points = group.filter_by_tag (tag)
 
@@ -27,9 +23,6 @@ for tag in tags:
     latitudes = [point.lat for point in tagged_points.points]
 
     plt.scatter (longitudes, latitudes, label = tag)
-
-# Using Matplotlib to plot the points on a scatter plot
-plt.scatter (longitudes, latitudes)
 
 # Adding labels and title
 plt.xlabel ("Longitude")
