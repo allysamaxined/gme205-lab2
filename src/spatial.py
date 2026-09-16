@@ -12,7 +12,7 @@ class Point:
         self.lat = lat
         self.name = name
         self.tag = tag
-
+    
 # ------------------------------------------------------------------ 
 # Instance methods (behavior belongs to the object)
 # ------------------------------------------------------------------
