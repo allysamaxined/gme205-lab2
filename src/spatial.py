@@ -12,8 +12,8 @@ class Point:
         self.lat = lat
         self.name = name
         self.tag = tag
-    
-# ------------------------------------------------------------------ 
+
+# ------------------------------------------------------------------
 # Instance methods (behavior belongs to the object)
 # ------------------------------------------------------------------
 
@@ -22,19 +22,26 @@ class Point:
         Return the coordinate as a (lon, lat) tuple.
         """
         return (self.lon, self.lat)
-    def distance_to (self, other):
-        return Point.haversine_m(self.lon, self.lat, other.lon, other.lat)
 
-# ------------------------------------------------------------------ 
+    def distance_to (self, other):
+        return Point.haversine_m(
+            self.lon,
+            self.lat,
+            other.lon,
+            other.lat
+        )
+
+# ------------------------------------------------------------------
 # Static method (pure spatial math)
 # ------------------------------------------------------------------
+
     @staticmethod
     def haversine_m (
         lon1: float, lat1: float, lon2: float, lat2: float
         ) -> float:
         """
         Compute the Haversine distance between two lon/lat pairs in meters.
-        
+
         Static method because it does not depend on object state.
         """
         R = 6_371_000 # Earth's radius in meters
@@ -54,9 +61,10 @@ class Point:
         c = 2 * math.atan2 (math.sqrt(a), math.sqrt(1 - a))
         return R * c
 
-# ------------------------------------------------------------------ 
+# ------------------------------------------------------------------
 # Class method (constructing objects from data)
 # ------------------------------------------------------------------
+
     @classmethod
     def from_row (cls, row):
         return cls (
@@ -71,16 +79,16 @@ class Point:
         return (self.tag or "").lower() == "poi"
 
 # ------------------------------------------------------------------
-# Creating the PointSet class to store multiple Point objects in a list.
+# Creating the PointSet class to store multiple Point objects.
 # ------------------------------------------------------------------
 
 class PointSet:
     def __init__ (self, points):
-        self.points = points # PointSet is now outside of the Point class, and it is a separate class that can store multiple Point objects in a list.
+        self.points = points
 
     @classmethod
     def from_csv (cls, path):
-        import pandas as pd 
+        import pandas as pd
 
         dataframe = pd.read_csv (path)
         points = []
@@ -90,13 +98,14 @@ class PointSet:
                 point = Point.from_row (row)
                 points.append (point)
 
-            except ValueError:
+            except (ValueError, TypeError, KeyError):
                 continue
 
         return cls (points)
 
     def count (self):
-        return len (self.points) # Using the len() function to count the number of Point objects in the PointSet.
+        return len (self.points)
+
     def bbox (self):
         min_lon = min (point.lon for point in self.points)
         min_lat = min (point.lat for point in self.points)
@@ -112,4 +121,3 @@ class PointSet:
         ]
 
         return PointSet (filtered_points)
-    

@@ -1,54 +1,77 @@
-from spatial import PointSet
+from collections import Counter
+import json
+from pathlib import Path
+
 import matplotlib.pyplot as plt
-import json # For the JSON file output
 
-# Load the .CSV file containing the points and create a PointSet object.
-group = PointSet.from_csv ("data/points.csv")
+from spatial import PointSet
 
-# Get the count and bounding box of the points in the PointSet.
+
+# Prepare the input and output paths.
+data_path = Path("data/points.csv")
+output_directory = Path("output")
+output_directory.mkdir(exist_ok=True)
+
+# Load the points.
+group = PointSet.from_csv(data_path)
+
 count = group.count()
 bbox = group.bbox()
 
-print ("Count: ", count)
-print ("Bounding Box: ", bbox)
+print("Count:", count)
+print("Bounding Box:", bbox)
 
-# Group the required scatter plot by water-body tag for clearer visualization.
-tags = ["River", "Lake", "Beach", "Falls", "Reef", "Bay", "Gulf"]
+# Plot every point, grouped according to its tag.
+tags = sorted(
+    {
+        point.tag
+        for point in group.points
+        if point.tag
+    }
+)
 
-# Assigning colors to each tag for better visualization and getting their coordinates.
 for tag in tags:
-    tagged_points = group.filter_by_tag (tag)
+    tagged_points = group.filter_by_tag(tag)
 
     longitudes = [point.lon for point in tagged_points.points]
     latitudes = [point.lat for point in tagged_points.points]
 
-    plt.scatter (longitudes, latitudes, label = tag)
+    plt.scatter(longitudes, latitudes, label=tag)
 
-# Adding labels and title
-plt.xlabel ("Longitude")
-plt.ylabel ("Latitude")
-plt.title ("Visualization of Known Water Bodies in the Philippines")
+# Label the plot.
+plt.xlabel("Longitude")
+plt.ylabel("Latitude")
+plt.title("Spatial Objects in UP Diliman")
+plt.legend(title="Point Tag")
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
 
-# Adding a legend. This can be customized based on user preference and on the amount of data involved.
-plt.legend (
-    title="Water Body Type",
-    fontsize = 8,
-    title_fontsize = 9,
-    markerscale = 0.7
+# Save and close the plot.
+plt.savefig(
+    output_directory / "lab2_preview.png",
+    dpi=300,
 )
-
-# Saving the plot
-plt.savefig ("output/lab2_preview.png")
-
-# Closing
 plt.close()
 
-# Generating the summary report
+# Count the points belonging to each tag.
+tag_counts = Counter(
+    point.tag or "untagged"
+    for point in group.points
+)
+
+# Generate the JSON summary.
 report = {
     "total_point_count": count,
-    "bounding_box" : bbox
+    "bounding_box": list(bbox),
+    "counts_per_tag": dict(sorted(tag_counts.items())),
 }
 
-# Saving the report as a JSON file
-with open ("output/lab2_report.json", "w") as f:
-    json.dump (report, f, indent = 4)
+with open(
+    output_directory / "lab2_report.json",
+    "w",
+    encoding="utf-8",
+) as file:
+    json.dump(report, file, indent=4)
+
+print("Created output/lab2_preview.png")
+print("Created output/lab2_report.json")

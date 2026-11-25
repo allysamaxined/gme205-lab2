@@ -1,9 +1,17 @@
 {
-    "total_point_count": 15,
+    "total_point_count": 10,
     "bounding_box": [
-        119.1637435,
-        8.187376503,
-        125.7320198,
-        15.2697575
-    ]
+        121.0538,
+        14.6478,
+        121.0672,
+        14.6573
+    ],
+    "counts_per_tag": {
+        "building": 3,
+        "gate": 1,
+        "landmark": 1,
+        "poi": 3,
+        "road": 1,
+        "school": 1
+    }
 }
